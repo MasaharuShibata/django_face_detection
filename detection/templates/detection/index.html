@@ -1,0 +1,69 @@
+<!-- 親テンプレートを読み込む-->
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="mt-5 text-center">
+            <div class="alert alert-primary alert-dismissible" role="alert">
+                <p style="margin-bottom:1em;"><h3><b>顔検出AIアプリの説明</b></h3></p>
+                <hr>
+                <h4>
+                    <ol>
+                        <li style="margin-bottom:1em;" align="left">顔を検出したいjpgファイル画像をアップロード後に「判定」
+                            ボタンを押してください。</li>
+                            <li style="margin-bottom:1em;" align="left">有村佳純、長澤まさみ、広瀬すず、堀北真希、北川景子の5人について判定が出来ます。</li>
+                                <li style="margin-bottom:1em;" align="left">アップロードされた画像の特徴を解析してAIが人物の名前を
+                                    自動判定します。</li>
+                                    <li style="margin-bottom:1em;" align="left">チュートリアル簡易用の学習モデルのため、上記以外のルールで作成
+                                        した画像は正しく判定されません。</li>
+                                        <li style="margin-bottom:1em;" align="left">画像サイズは28*28ピクセルにすると判定確率が高くなります。</li>
+                                        <li style="margin-bottom:1em;" align="left">画像ファイルは複数同時に選択してアップロードすることができます。</li>
+                                    </ol>
+                                </h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+                            <div style="display:inline-flex">
+                                <input type="file" name="files[]" multiple>
+                            </div>
+                            <input type="submit" class="btn btn-lg btn-danger" value="判定">
+                            {% csrf_token %}
+                        </form>
+
+                        {% if message %}
+                        <div class="alert alert-danger" role="alert">
+                            <h4><font color="red">{{message}}<br></font> </h4>
+                        </div>
+                        {% endif %}
+                        <hr>
+                        <h4><p style="margin-bottom:1em;">入力画像データ例</p></h4>
+
+                        <!-- 画像表示 -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="thumbnail">
+                                        <img src='https://static.chunichi.co.jp/image/article/size1/2/b/2/d/2b2d4abb3361c800f370d15043cf8052_1.jpg'width="100px">
+                                        <div class="caption">広瀬すず</div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="thumbnail">
+                                        <img src="https://img.buzzfeed.com/buzzfeed-static/static/2017-02/28/21/asset/buzzfeed-prod-fastlane-02/sub-buzz-31468-1488334938-1.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto" width="100px">
+                                        <div class="caption">堀北真希</div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="thumbnail">
+                                        <img src="https://static.sanyonews.jp/image/article/786x590/d/8/e/4/d8e47489587cef43019bed9ff70ab94d_1.jpg" width="100px">
+                                        <div class="caption">北川景子</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 画像表示 -->
+                    </div>
+                </div>
+                {% endblock content %}
