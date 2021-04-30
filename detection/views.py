@@ -7,7 +7,6 @@ import os
 # ここから下は顔検出の方からの引用
 import torch
 import numpy as np
-import matplotlib.pyplot as plt
 #from network import Net
 import cv2
 import os
